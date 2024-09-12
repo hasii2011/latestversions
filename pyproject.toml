@@ -3,7 +3,7 @@ requires = ['setuptools', 'wheel']
 build-backend = "setuptools.build_meta"
 
 [project]
-name='packageversions'
+name='latestversions'
 dynamic = ["version"]
 description = 'Reports the latest versions PyPi packages'
 readme = "README.md"
@@ -31,4 +31,4 @@ version = {attr = 'packageversions.__version__'}
 
 [project.scripts]
 
-packageversions = "packageversions.PackageVersions:commandHandler"
+latestversions = "packageversions.PackageVersions:commandHandler"
