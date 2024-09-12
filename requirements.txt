@@ -2,6 +2,8 @@ setuptools==74.1.2
 twine==5.1.1
 wheel~=0.44.0
 build==1.2.2
+mypy==1.11.2
+
 buildlackey==1.6.2
 
 click==8.1.7

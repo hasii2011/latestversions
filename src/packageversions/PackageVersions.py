@@ -14,6 +14,8 @@ from json import load as jsonLoad
 from subprocess import CompletedProcess
 from subprocess import run as subProcessRun
 
+from platform import platform as osPlatform
+
 from click import command
 from click import ClickException
 from click import version_option
@@ -22,6 +24,9 @@ from click import option
 from codeallybasic.ResourceManager import ResourceManager
 
 from packageversions import __version__
+
+
+THE_GREAT_MAC_PLATFORM: str = 'macOS-14.6.1'
 
 # noinspection SpellCheckingInspection
 PACKAGE_NAME:                 str = 'packageversions'
@@ -35,6 +40,8 @@ JQ_CMD:           str = 'jq'
 MAC_OS_JQ_PATH:   str = f'/opt/homebrew/bin/{JQ_CMD} --version'
 LINUX_OS_JQ_PATH: str = f'/usr/bin/{JQ_CMD} --version'
 
+NON_MAC__OS_JQ_PATH: str = '/usr/bin/jq'
+
 MAC_OS_CURL_PATH:   str = f'/usr/bin/{CURL_CMD} --help'
 LINUX_OS_CURL_PATH: str = f'/usr/bin/{CURL_CMD} --help'
 
@@ -42,6 +49,7 @@ CURL_TEMPLATE_CMD: str = 'curl -s https://pypi.org/pypi/{}/json'
 JQ_FILTER_CMD:     str = "jq -r '.info.version'"
 
 DEFAULT_OUTPUT_FILE_NAME: str = 'latestVersions.txt'
+
 
 PackageNames = NewType('PackageNames', Tuple[str])
 
@@ -83,7 +91,11 @@ class PackageVersions:
         """
         Returns: `True` if the JSON processor is installed else `False`
         """
-        return self._checkInstallation(MAC_OS_JQ_PATH)
+        platform: str = osPlatform(terse=True)
+        if platform == THE_GREAT_MAC_PLATFORM:
+            return self._checkInstallation(MAC_OS_JQ_PATH)
+        else:
+            return self._checkInstallation(NON_MAC__OS_JQ_PATH)
 
     def _checkCurlInstalled(self) -> bool:
         return self._checkInstallation(MAC_OS_CURL_PATH)
