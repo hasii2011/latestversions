@@ -29,7 +29,7 @@ class TestPackageVersions(UnitTestBase):
 
     def testRunCommandPass(self):
         status: int = PackageVersions.runCommand('/opt/homebrew/bin/jq --version')
-        self.assertEqual(0, status, 'This should fail')
+        self.assertEqual(0, status, 'This should pass')
 
 
 def suite() -> TestSuite:
