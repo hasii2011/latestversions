@@ -18,8 +18,11 @@ from platform import platform as osPlatform
 
 from click import command
 from click import ClickException
+from click import style
 from click import version_option
 from click import option
+
+from click import secho as clickSEcho
 
 from codeallybasic.ResourceManager import ResourceManager
 
@@ -45,7 +48,6 @@ NON_MAC__OS_JQ_PATH: str = '/usr/bin/jq'
 MAC_OS_CURL_PATH:   str = f'/usr/bin/{CURL_CMD} --help'
 LINUX_OS_CURL_PATH: str = f'/usr/bin/{CURL_CMD} --help'
 
-CURL_TEMPLATE_CMD: str = 'curl -s https://pypi.org/pypi/{}/json'
 JQ_FILTER_CMD:     str = "jq -r '.info.version'"
 
 DEFAULT_OUTPUT_FILE_NAME: str = 'latestVersions.txt'
@@ -77,15 +79,16 @@ class PackageVersions:
             for packageName in packageNames:
                 self.logger.info(f'{packageName=}')
                 checkCmd: str = (
-                    # f"curl -s https://pypi.org/pypi/{packageName}/json | jq -r '.info.version'"
-                    f"{CURL_TEMPLATE_CMD} | {JQ_FILTER_CMD}"
-
+                    f"curl -s https://pypi.org/pypi/{packageName}/json | jq -r '.info.version'"
                 )
                 completedProcess: CompletedProcess = subProcessRun([checkCmd], shell=True, capture_output=True, text=True, check=False)
                 if completedProcess.returncode == 0:
                     versionDescription: str = f'{packageName} == {completedProcess.stdout}'
-                    self.logger.info(versionDescription)
+                    self.logger.debug(versionDescription)
                     outputFile.write(versionDescription)
+
+        clickSEcho(f'')
+        clickSEcho(f'Output written to {outputFileName}', italic=True)
 
     def _checkJQInstalled(self) -> bool:
         """

@@ -27,7 +27,7 @@
             "propagate": "False"
         },
         "PackageVersions": {
-            "level":     "INFO",
+            "level":     "WARNING",
             "propagate": "False"
         }
     }
