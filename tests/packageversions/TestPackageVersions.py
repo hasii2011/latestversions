@@ -2,9 +2,14 @@
 from unittest import TestSuite
 from unittest import main as unitTestMain
 
+from platform import platform as osPlatform
+
 from codeallybasic.UnitTestBase import UnitTestBase
 
+from packageversions.PackageVersions import MAC_OS_JQ_PATH
+from packageversions.PackageVersions import NON_MAC__OS_JQ_PATH
 from packageversions.PackageVersions import PackageVersions
+from packageversions.PackageVersions import THE_GREAT_MAC_PLATFORM
 
 
 class TestPackageVersions(UnitTestBase):
@@ -28,7 +33,12 @@ class TestPackageVersions(UnitTestBase):
         self.assertNotEqual(0, status, 'This should fail')
 
     def testRunCommandPass(self):
-        status: int = PackageVersions.runCommand('/opt/homebrew/bin/jq --version')
+        platform: str = osPlatform(terse=True)
+        if platform == THE_GREAT_MAC_PLATFORM:
+            status: int = PackageVersions.runCommand(MAC_OS_JQ_PATH)
+        else:
+            status = PackageVersions.runCommand(NON_MAC__OS_JQ_PATH)
+
         self.assertEqual(0, status, 'This should pass')
 
 
