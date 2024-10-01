@@ -34,7 +34,7 @@ class TestPackageVersions(UnitTestBase):
 
     def testRunCommandPass(self):
         platform: str = osPlatform(terse=True)
-        if platform == THE_GREAT_MAC_PLATFORM:
+        if platform.startswith(THE_GREAT_MAC_PLATFORM) is True:
             status: int = PackageVersions.runCommand(MAC_OS_JQ_PATH)
         else:
             status = PackageVersions.runCommand(NON_MAC__OS_JQ_PATH)

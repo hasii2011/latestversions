@@ -18,7 +18,7 @@ from platform import platform as osPlatform
 
 from click import command
 from click import ClickException
-from click import style
+
 from click import version_option
 from click import option
 
@@ -29,7 +29,7 @@ from codeallybasic.ResourceManager import ResourceManager
 from packageversions import __version__
 
 
-THE_GREAT_MAC_PLATFORM: str = 'macOS-14.6.1'
+THE_GREAT_MAC_PLATFORM: str = 'macOS'
 
 # noinspection SpellCheckingInspection
 PACKAGE_NAME:                 str = 'packageversions'
@@ -95,7 +95,7 @@ class PackageVersions:
         Returns: `True` if the JSON processor is installed else `False`
         """
         platform: str = osPlatform(terse=True)
-        if platform == THE_GREAT_MAC_PLATFORM:
+        if platform.startswith(THE_GREAT_MAC_PLATFORM) is True:
             return self._checkInstallation(MAC_OS_JQ_PATH)
         else:
             return self._checkInstallation(NON_MAC__OS_JQ_PATH)
