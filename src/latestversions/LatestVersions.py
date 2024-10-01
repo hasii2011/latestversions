@@ -26,13 +26,13 @@ from click import secho as clickSEcho
 
 from codeallybasic.ResourceManager import ResourceManager
 
-from packageversions import __version__
+from latestversions import __version__
 
 
 THE_GREAT_MAC_PLATFORM: str = 'macOS'
 
 # noinspection SpellCheckingInspection
-PACKAGE_NAME:                 str = 'packageversions'
+PACKAGE_NAME:                 str = 'latestversions'
 DEBUG_LOGGER_NAME:            str = 'PackageVersions'
 JSON_LOGGING_CONFIG_FILENAME: str = "loggingConfiguration.json"
 RESOURCES_PATH:               str = f'{PACKAGE_NAME}{osSep}resources'
@@ -56,7 +56,7 @@ DEFAULT_OUTPUT_FILE_NAME: str = 'latestVersions.txt'
 PackageNames = NewType('PackageNames', Tuple[str])
 
 
-class PackageVersions:
+class LatestVersions:
     """
     Let's us check the latest version of a package
 
@@ -105,7 +105,7 @@ class PackageVersions:
 
     def _checkInstallation(self, commandToCheck) -> bool:
         ans:    bool = False
-        status: int  = PackageVersions.runCommand(commandToCheck)
+        status: int  = LatestVersions.runCommand(commandToCheck)
         if status == 0:
             ans = True
         return ans
@@ -148,9 +148,9 @@ def commandHandler(package_name: PackageNames, output_file: str):
     By default output is just written to the default file name
 
     """
-    PackageVersions.setupSystemLogging()
+    LatestVersions.setupSystemLogging()
 
-    packageVersions: PackageVersions = PackageVersions()
+    packageVersions: LatestVersions = LatestVersions()
     packageVersions.report(packageNames=package_name, outputFileName=output_file)
 
 
