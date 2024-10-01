@@ -6,10 +6,10 @@ from platform import platform as osPlatform
 
 from codeallybasic.UnitTestBase import UnitTestBase
 
-from packageversions.PackageVersions import MAC_OS_JQ_PATH
-from packageversions.PackageVersions import NON_MAC__OS_JQ_PATH
-from packageversions.PackageVersions import PackageVersions
-from packageversions.PackageVersions import THE_GREAT_MAC_PLATFORM
+from latestversions.LatestVersions import MAC_OS_JQ_PATH
+from latestversions.LatestVersions import NON_MAC__OS_JQ_PATH
+from latestversions.LatestVersions import LatestVersions
+from latestversions.LatestVersions import THE_GREAT_MAC_PLATFORM
 
 
 class TestPackageVersions(UnitTestBase):
@@ -29,15 +29,15 @@ class TestPackageVersions(UnitTestBase):
         super().tearDown()
 
     def testRunCommandFail(self):
-        status: int = PackageVersions.runCommand('/bogus/bin/fail')
+        status: int = LatestVersions.runCommand('/bogus/bin/fail')
         self.assertNotEqual(0, status, 'This should fail')
 
     def testRunCommandPass(self):
         platform: str = osPlatform(terse=True)
         if platform.startswith(THE_GREAT_MAC_PLATFORM) is True:
-            status: int = PackageVersions.runCommand(MAC_OS_JQ_PATH)
+            status: int = LatestVersions.runCommand(MAC_OS_JQ_PATH)
         else:
-            status = PackageVersions.runCommand(NON_MAC__OS_JQ_PATH)
+            status = LatestVersions.runCommand(NON_MAC__OS_JQ_PATH)
 
         self.assertEqual(0, status, 'This should pass')
 

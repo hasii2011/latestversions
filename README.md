@@ -10,12 +10,25 @@ A simple python console script to
 The basic command structure is:
 
 ```
+Usage: latestversions [OPTIONS]
+
+  This command reports the latest package versions of the specified input packages
+  
+  By default output is just written to the default file name
+
+Options:
+  --version                Show the version and exit.
+  -p, --package-name TEXT  Specify package names  [required]
+  -o, --output-file TEXT   The optional file.
+  --help                   Show this message and exit.
 ```
 
 
 # Installation
 
-```pip install packageversions```
+```
+pip install latestversions
+```
 
 
 ___
