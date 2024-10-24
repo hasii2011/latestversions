@@ -23,6 +23,7 @@ from click import version_option
 from click import option
 
 from click import secho as clickSEcho
+from click import open_file
 
 from codeallybasic.ResourceManager import ResourceManager
 
@@ -51,7 +52,7 @@ LINUX_OS_CURL_PATH: str = f'/usr/bin/{CURL_CMD} --help'
 JQ_FILTER_CMD:     str = "jq -r '.info.version'"
 
 DEFAULT_OUTPUT_FILE_NAME: str = 'latestVersions.txt'
-
+CLICK_STDOUT_INDICATOR:   str = '-'
 
 PackageNames = NewType('PackageNames', Tuple[str])
 
@@ -74,7 +75,9 @@ class LatestVersions:
         if self._checkCurlInstalled() is False:
             raise ClickException(f'{CURL_CMD} not installed')
 
-        with open(outputFileName, 'w') as outputFile:
+        if outputFileName is None:
+            outputFileName = CLICK_STDOUT_INDICATOR
+        with open_file(outputFileName, 'w') as outputFile:
 
             for packageName in packageNames:
                 self.logger.info(f'{packageName=}')
@@ -83,12 +86,13 @@ class LatestVersions:
                 )
                 completedProcess: CompletedProcess = subProcessRun([checkCmd], shell=True, capture_output=True, text=True, check=False)
                 if completedProcess.returncode == 0:
-                    versionDescription: str = f'{packageName} == {completedProcess.stdout}'
+                    versionDescription: str = f'{packageName}=={completedProcess.stdout}'
                     self.logger.debug(versionDescription)
                     outputFile.write(versionDescription)
 
-        clickSEcho(f'')
-        clickSEcho(f'Output written to {outputFileName}', italic=True)
+        if outputFileName != CLICK_STDOUT_INDICATOR:
+            clickSEcho(f'')
+            clickSEcho(f'Output written to {outputFileName}', italic=True)
 
     def _checkJQInstalled(self) -> bool:
         """
@@ -139,13 +143,13 @@ class LatestVersions:
 @command()
 @version_option(version=f'{__version__}', message='%(version)s')
 @option('--package-name', '-p', multiple=True, required=True, help='Specify package names')
-@option('-o', '--output-file', required=False, default=DEFAULT_OUTPUT_FILE_NAME,  help='The optional file.')
+@option('-o', '--output-file', required=False, help='The optional file.')
 def commandHandler(package_name: PackageNames, output_file: str):
     """
     \b
     This command reports the latest package versions of the specified input packages
     \b
-    By default output is just written to the default file name
+    By default output is written to stdout
 
     """
     LatestVersions.setupSystemLogging()

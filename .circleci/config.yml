@@ -22,8 +22,6 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            whereis jq
-            whereis curl
             sudo apt update
             sudo apt install -y jq
             pip install --upgrade pip
