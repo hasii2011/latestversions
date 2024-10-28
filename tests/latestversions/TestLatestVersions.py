@@ -7,7 +7,7 @@ from platform import platform as osPlatform
 from codeallybasic.UnitTestBase import UnitTestBase
 
 from latestversions.LatestVersions import MAC_OS_JQ_PATH
-from latestversions.LatestVersions import NON_MAC__OS_JQ_PATH
+from latestversions.LatestVersions import NON_MAC_OS_LS_PATH
 from latestversions.LatestVersions import LatestVersions
 from latestversions.LatestVersions import THE_GREAT_MAC_PLATFORM
 
@@ -37,7 +37,7 @@ class TestLatestVersions(UnitTestBase):
         if platform.startswith(THE_GREAT_MAC_PLATFORM) is True:
             status: int = LatestVersions.runCommand(MAC_OS_JQ_PATH)
         else:
-            status = LatestVersions.runCommand(NON_MAC__OS_JQ_PATH)
+            status = LatestVersions.runCommand(NON_MAC_OS_LS_PATH)
 
         self.assertEqual(0, status, 'This should pass')
 

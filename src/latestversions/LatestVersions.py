@@ -44,7 +44,7 @@ JQ_CMD:           str = 'jq'
 MAC_OS_JQ_PATH:   str = f'/opt/homebrew/bin/{JQ_CMD} --version'
 LINUX_OS_JQ_PATH: str = f'/usr/bin/{JQ_CMD} --version'
 
-NON_MAC__OS_JQ_PATH: str = '/usr/bin/jq'
+NON_MAC_OS_LS_PATH: str = '/usr/bin/ls'
 
 MAC_OS_CURL_PATH:   str = f'/usr/bin/{CURL_CMD} --help'
 LINUX_OS_CURL_PATH: str = f'/usr/bin/{CURL_CMD} --help'
@@ -102,7 +102,7 @@ class LatestVersions:
         if platform.startswith(THE_GREAT_MAC_PLATFORM) is True:
             return self._checkInstallation(MAC_OS_JQ_PATH)
         else:
-            return self._checkInstallation(NON_MAC__OS_JQ_PATH)
+            return self._checkInstallation(NON_MAC_OS_LS_PATH)
 
     def _checkCurlInstalled(self) -> bool:
         return self._checkInstallation(MAC_OS_CURL_PATH)
