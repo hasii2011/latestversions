@@ -17,6 +17,7 @@ python:
 
 # command to install dependencies
 install:
+  - pip install buildlackey==1.7.0
   - pip install click==8.1.7
   - pip install codeallybasic==1.7.0
   - pip install html-testRunner==1.2.1
