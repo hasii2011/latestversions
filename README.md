@@ -33,7 +33,7 @@ pip install latestversions
 
 ___
 
-Written by Humberto A. Sanchez II <mailto@humberto.a.sanchez.ii@gmail.com>, (C) 2024
+Written by Humberto A. Sanchez II <mailto@humberto.a.sanchez.ii@gmail.com>, (C) 2025
 
  
 

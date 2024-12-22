@@ -13,8 +13,8 @@ maintainers = [{name = 'Humberto A. Sanchez II', email = 'Humbert.A.Sanchez.II@g
 keywords = ['requirements', 'versions', 'python',]
 
 dependencies = [
-  'click~=8.1.7',
-  'codeallybasic<=1.7.0',
+  'click>=8.1.8',
+  'codeallybasic>=1.7.0',
 ]
 
 [project.urls]
