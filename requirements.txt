@@ -4,7 +4,7 @@ wheel==0.45.1
 build==1.2.2.post1
 mypy==1.14.0
 
-buildlackey>=1.8.0
+buildlackey>=1.7.0
 
 click==8.1.7
 
