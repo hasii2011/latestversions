@@ -23,12 +23,36 @@ Options:
   --help                   Show this message and exit.
 ```
 
-
 # Installation
 
 ```
 pip install latestversions
 ```
+
+# Prerequisites
+
+[Curl](https://everything.curl.dev/project/index.html) is pre-installed on Mac OSX
+
+[jq](https://jqlang.github.io/jq/) CLI JSON processor.  Use [brew](https://brew.sh) to install this.
+
+
+
+# Sample Output
+
+
+
+```bash
+latestversions -p wheel -p setuptools -p twine -p build -p mypy 
+wheel==0.45.1
+setuptools==75.8.0
+twine==6.0.1
+build==1.2.2.post1
+mypy==1.14.1
+
+```
+
+
+
 
 
 ___
@@ -37,7 +61,7 @@ Written by Humberto A. Sanchez II <mailto@humberto.a.sanchez.ii@gmail.com>, (C) 
 
  
 
- 
+
 ## Note
 For all kind of problems, requests, enhancements, bug reports, etc.,
 please drop me an e-mail.
@@ -70,5 +94,4 @@ A repository owner may opt out of Copilot by changing Settings --> GitHub Copilo
 
 I have done so.
 I have done so.
-
 
